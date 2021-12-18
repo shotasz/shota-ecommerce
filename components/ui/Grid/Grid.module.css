@@ -3,23 +3,45 @@
 
   @apply lg:grid-cols-3 lg:grid-rows-2;
 
-  & > * {
+  /* & > * {
     @apply row-span-1 overflow-hidden;
 
     @screen lg {
       height: inherit;
       max-height: 100%;
     }
+  } */
+}
+
+.root > * {
+  @apply row-span-1 overflow-hidden;
+
+  @screen lg {
+    height: inherit;
+    max-height: 100%;
   }
 }
 
-.layoutA {
+/* .layoutA {
   & > *:nth-child(6n + 1),
   & > *:nth-child(6n + 5) {
     @apply lg:col-span-2 lg:row-span-2;
   }
+} */
+
+.layoutA > *:nth-child(6n + 1),
+.layoutA > *:nth-child(6n + 5) {
+  @apply lg:col-span-2 lg:row-span-2;
 }
 
-.layoutB {
-  color: blue;
+/* .layoutB {
+  & > *:nth-child(6n + 2),
+  & > *:nth-child(6n + 4) {
+    @apply lg:col-span-2 lg:row-span-2;
+  }
+} */
+
+.layoutB > *:nth-child(6n + 2),
+.layoutB > *:nth-child(6n + 4) {
+  @apply lg:col-span-2 lg:row-span-2;
 }

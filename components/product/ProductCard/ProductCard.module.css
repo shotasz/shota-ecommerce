@@ -1,7 +1,7 @@
 .root {
   @apply relative max-h-full;
 
-  &:hover {
+  /* &:hover {
     & .productBg:before {
       transform: scale(0.99);
     }
@@ -9,9 +9,9 @@
     & .productImage {
       transform: scale(1.1);
     }
-  }
+  } */
 
-  &:nth-child(6n + 1) .productBg {
+  /* &:nth-child(6n + 1) .productBg {
     @apply bg-violet;
   }
   &:nth-child(6n + 3) .productBg {
@@ -22,7 +22,28 @@
   }
   &:nth-child(6n + 6) .productBg {
     @apply bg-cyan;
-  }
+  } */
+}
+
+.root:hover .productBg:before {
+  transform: scale(0.99);
+}
+
+.root:hover .productImage {
+  transform: scale(1.1);
+}
+
+.root:nth-child(6n + 1) .productBg {
+  @apply bg-violet;
+}
+.root:nth-child(6n + 3) .productBg {
+  @apply bg-pink;
+}
+.root:nth-child(6n + 5) .productBg {
+  @apply bg-blue;
+}
+.root:nth-child(6n + 6) .productBg {
+  @apply bg-cyan;
 }
 
 .productImage {
@@ -33,30 +54,46 @@
   @apply absolute inset-0 z-0;
   background-color: #212529;
 
-  &:before {
+  /* &:before {
     @apply transition-transform duration-500 block h-full w-full bg-repeat-space;
     content: "";
     background-image: url("/product-pattern-bg.svg");
-  }
+  } */
+}
+
+.productBg:before {
+  @apply transition-transform duration-500 block h-full w-full bg-repeat-space;
+  content: "";
+  background-image: url("/product-pattern-bg.svg");
 }
 
 .productTag {
   @apply absolute top-0 left-0 z-20;
 
-  & > * {
+  /* & > * {
     font-size: 2rem;
     letter-spacing: 0.4px;
-  }
+  } */
+}
+
+.productTag > * {
+  font-size: 2rem;
+  letter-spacing: 0.4px;
 }
 
 .productTitle {
   @apply font-bold;
   line-height: 2.2rem;
 
-  & span {
+  /* & span {
     @apply bg-primary py-4 px-6;
     box-decoration-break: clone;
-  }
+  } */
+}
+
+.productTitle span {
+  @apply bg-primary py-4 px-6;
+  box-decoration-break: clone;
 }
 
 .productPrice {
