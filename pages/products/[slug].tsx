@@ -39,8 +39,8 @@ export default function ProductSlug({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
-      {product.name}
-      {product.slug}
+      {product?.name}
+      {product?.slug}
     </div>
   );
 }
