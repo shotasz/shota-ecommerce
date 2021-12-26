@@ -1,16 +1,26 @@
 import classNames from "classnames";
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from "./ProductView.module.css";
 import { Button, Container } from "@components/ui";
 import Image from "next/image";
 import { Product } from "@common/types/product";
-import { ProductSlider } from "@components/product";
+import { ProductSlider, ProductSwatch } from "@components/product";
 
 interface Props {
   product: Product;
 }
 
+type AvailableChoices = "size" | "color" | string;
+
+type Choices = {
+  [P in AvailableChoices]: string;
+};
+
 const ProductView: FC<Props> = ({ product }) => {
+  const [choices, setChoices] = useState<Choices>({});
+
+  console.log(choices);
+
   return (
     <Container>
       <div className={classNames(styles.root, "fit", "mb-5")}>
@@ -41,13 +51,32 @@ const ProductView: FC<Props> = ({ product }) => {
         </div>
         <div className={styles.sidebar}>
           <section>
+            {/* {product.options.map((option) => console.log(option.displayName))} */}
             {product.options.map((option) => (
               <div key={option.id} className="pb-4">
                 <h2 className="uppercase font-medium">{option.displayName}</h2>
                 <div className="flex flex-row py-4">
-                  {option.values.map((value) => (
-                    <div key={`${option.id}-${value.label}`}>{value.label}</div>
-                  ))}
+                  {option.values.map((value) => {
+                    const activeChoice =
+                      choices[option.displayName.toLowerCase()];
+
+                    return (
+                      <ProductSwatch
+                        key={`${option.id}-${value.label}`}
+                        label={value.label}
+                        color={value.hexColor}
+                        variant={option.displayName}
+                        active={value.label.toLowerCase() === activeChoice}
+                        onClick={() => {
+                          setChoices({
+                            ...choices,
+                            [option.displayName.toLowerCase()]:
+                              value.label.toLowerCase(),
+                          });
+                        }}
+                      />
+                    );
+                  })}
                 </div>
               </div>
             ))}
