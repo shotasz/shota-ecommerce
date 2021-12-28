@@ -5,21 +5,16 @@ import { Button, Container } from "@components/ui";
 import Image from "next/image";
 import { Product } from "@common/types/product";
 import { ProductSlider, ProductSwatch } from "@components/product";
+import { Choices, getVariant } from "../helpers";
 
 interface Props {
   product: Product;
 }
 
-type AvailableChoices = "size" | "color" | string;
-
-type Choices = {
-  [P in AvailableChoices]: string;
-};
-
 const ProductView: FC<Props> = ({ product }) => {
   const [choices, setChoices] = useState<Choices>({});
 
-  console.log(choices);
+  const variant = getVariant(product, choices);
 
   return (
     <Container>
