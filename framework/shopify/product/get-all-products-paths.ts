@@ -12,15 +12,11 @@ const getAllProductsPaths = async (config: ApiConfig): Promise<ReturnType> => {
     query: getAllProductsPathsQuery,
   });
 
-  //console.log(JSON.stringify(data, null, 2));
-
   const products = data.products.edges.map(({ node: { handle } }) => {
     return {
       slug: handle,
     };
   });
-
-  //console.log(products);
 
   return { products };
 };

@@ -23,8 +23,6 @@ const getProduct = async (options: {
   });
 
   const { productByHandle } = data;
-  //console.log(productByHandle);
-  //console.log(JSON.stringify(data, null, 2));
 
   return {
     product: productByHandle ? normalizeProduct(productByHandle) : null,

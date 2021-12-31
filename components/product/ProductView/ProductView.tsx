@@ -30,7 +30,6 @@ const ProductView: FC<Props> = ({ product }) => {
       };
 
       const output = await addItem(item);
-      console.log(JSON.stringify(output));
       openSidebar();
     } catch {}
   };
@@ -65,7 +64,6 @@ const ProductView: FC<Props> = ({ product }) => {
         </div>
         <div className={styles.sidebar}>
           <section>
-            {/* {product.options.map((option) => console.log(option.displayName))} */}
             {product.options.map((option) => (
               <div key={option.id} className="pb-4">
                 <h2 className="uppercase font-medium">{option.displayName}</h2>
