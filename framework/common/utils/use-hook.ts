@@ -24,7 +24,7 @@ export const useMutationHook = (hook: MutationHook) => {
   });
 };
 
-const useData = (hook: any, fetcher: ApiFetcher) => {
+const useData = (hook: any, fetcher: ApiFetcher, ctx: any) => {
   const hookFetcher = async (query: string) => {
     try {
       return await hook.fetcher({
@@ -37,7 +37,7 @@ const useData = (hook: any, fetcher: ApiFetcher) => {
     }
   };
 
-  const response = useSWR(hook.fetchOptions.query, hookFetcher);
+  const response = useSWR(hook.fetchOptions.query, hookFetcher, ctx.swrOptions);
 
   return response;
 };
@@ -46,9 +46,8 @@ export const useSWRHook = (hook: any) => {
   const { fetcher } = useApiProvider();
 
   return hook.useHook({
-    fetch: hook.fetcher,
-    useData() {
-      const data = useData(hook, fetcher);
+    useData(ctx: any) {
+      const data = useData(hook, fetcher, ctx);
       return data;
     },
   });
