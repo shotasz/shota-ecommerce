@@ -30,7 +30,7 @@ const ProductView: FC<Props> = ({ product }) => {
       };
 
       const output = await addItem(item);
-      debugger;
+
       alert(JSON.stringify(output));
       openSidebar();
     } catch {}

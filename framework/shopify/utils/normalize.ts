@@ -30,7 +30,6 @@ export const normalizeCheckout = (checkout: Checkout): Cart => {
 const normalizeLineItem = ({
   node: { id, title, variant, ...rest },
 }: CheckoutLineItemEdge): LineItem => {
-  debugger;
   return {
     id,
     variantId: String(variant?.id),
