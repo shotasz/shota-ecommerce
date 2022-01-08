@@ -1,4 +1,4 @@
-import useCart from "@common/cart/use-cart";
+import useCart, { UseCart } from "@common/cart/use-cart";
 import { Cart } from "@common/types/cart";
 import { SWRHook } from "@common/types/hooks";
 import { Checkout } from "@framework/schema";
@@ -19,7 +19,7 @@ export type UseCartHook = {
   data: Cart;
 };
 
-export default useCart;
+export default useCart as UseCart<typeof handler>;
 
 export const handler: SWRHook<UseCartHook> = {
   fetcherOptions: {
@@ -45,15 +45,17 @@ export const handler: SWRHook<UseCartHook> = {
 
     return cart;
   },
-  useHook: ({ useData }) => {
-    const data = useData({
-      swrOptions: {
-        revalidateOnFocus: false,
-      },
-    });
+  useHook:
+    ({ useData }) =>
+    () => {
+      const data = useData({
+        swrOptions: {
+          revalidateOnFocus: false,
+        },
+      });
 
-    return useMemo(() => {
-      return data;
-    }, [data]);
-  },
+      return useMemo(() => {
+        return data;
+      }, [data]);
+    },
 };
