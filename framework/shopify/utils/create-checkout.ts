@@ -10,10 +10,15 @@ import { checkoutCreate } from "./mutation";
 
 const createCheckout = async (
   fetch: ApiFetcher<{ checkoutCreate: CheckoutCreatePayload }>
-): Promise<Maybe<Checkout | undefined>> => {
+): Promise<Checkout> => {
   const { data } = await fetch({ query: checkoutCreate });
 
   const { checkout } = data.checkoutCreate;
+
+  if (!checkout) {
+    throw new Error("CheckOutが作成されませんでした!");
+  }
+
   const checkoutId = checkout?.id;
 
   if (checkoutId) {
