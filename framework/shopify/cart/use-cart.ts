@@ -42,7 +42,7 @@ export const handler: SWRHook<UseCartHook> = {
 
     return cart;
   },
-  useHook: ({ useData }: any) => {
+  useHook: ({ useData }) => {
     const data = useData({
       swrOptions: {
         revalidateOnFocus: false,
