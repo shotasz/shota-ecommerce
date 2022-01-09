@@ -1,16 +1,19 @@
 import { FC } from "react";
 import { Bag, Cross } from "@components/icons";
-import cn from "classnames";
+import classNames from "classnames";
 import { useUI } from "@components/ui/context";
 import useCart from "@framework/cart/use-cart";
+import { LineItem } from "@common/types/cart";
+import CartItem from "../CartItem";
 
 const CartSidebar: FC = () => {
-  const isEmpty = true;
   const { closeSidebar } = useUI();
-  const { data } = useCart();
-  console.log(data);
+  const { data, isEmpty } = useCart();
 
-  const rootClass = cn("h-full flex flex-col", {
+  const tax = 0.1;
+  const includeTaxes = tax * data?.totalPrice!;
+
+  const rootClass = classNames("h-full flex flex-col", {
     "bg-secondary text-secondary": isEmpty,
   });
 
@@ -35,41 +38,53 @@ const CartSidebar: FC = () => {
             <Bag className="absolute" />
           </span>
           <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
-            Your cart is empty
+            カートは空です
           </h2>
           <p className="text-accents-3 px-10 text-center pt-2">
-            Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
+            お客様のカートには商品がありません。
           </p>
         </div>
       ) : (
         <>
           <div className="px-4 sm:px-6 flex-1">
-            <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide inline-block">
-              My Cart
+            <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold tracking-wide inline-block">
+              カート
             </h2>
             <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
-              Cart Items Here!
+              {data?.lineItems.map((item: LineItem) => (
+                <CartItem
+                  key={item.id}
+                  item={item}
+                  currencyCode={data.currency.code}
+                />
+              ))}
             </ul>
           </div>
           <div className="flex-shrink-0 px-4  py-5 sm:px-6">
             <div className="border-t border-accents-3">
               <ul className="py-3">
                 <li className="flex justify-between py-1">
-                  <span>Subtotal</span>
-                  <span>20$</span>
+                  <span>商品の小計</span>
+                  <span>
+                    {data?.lineItemsSubTotalPrice} {data?.currency.code}
+                  </span>
                 </li>
                 <li className="flex justify-between py-1">
-                  <span>Taxes</span>
-                  <span>Calculated at checkout</span>
+                  <span>税率（10%）</span>
+                  <span>
+                    {includeTaxes} {data?.currency.code}
+                  </span>
                 </li>
                 <li className="flex justify-between py-1">
-                  <span>Estimated Shipping</span>
-                  <span className="font-bold tracking-wide">FREE</span>
+                  <span>配送料・手数料</span>
+                  <span className="font-bold tracking-wide">無料</span>
                 </li>
               </ul>
               <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
-                <span>Total</span>
-                <span>120$</span>
+                <span>ご請求金額</span>
+                <span>
+                  {data?.totalPrice! + includeTaxes} {data?.currency.code}
+                </span>
               </div>
             </div>
             <button
@@ -77,7 +92,7 @@ const CartSidebar: FC = () => {
                 alert("Going to checkout!");
               }}
             >
-              Proceed to Checkout
+              レジに進む
             </button>
           </div>
         </>
