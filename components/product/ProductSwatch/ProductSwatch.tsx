@@ -5,6 +5,7 @@ import styles from "./ProductSwatch.module.css";
 import { isDark } from "lib/color";
 
 interface Props {
+  size?: "sm" | "md" | "lg";
   color?: string;
   label?: string;
   variant?: "size" | "color" | string;
@@ -17,6 +18,7 @@ const ProductSwatch: FC<Props> = ({
   label,
   variant,
   active,
+  size = "md",
   ...rest
 }) => {
   label = label?.toLowerCase();
@@ -27,6 +29,7 @@ const ProductSwatch: FC<Props> = ({
     [styles.size]: variant === "size",
     [styles.color]: color,
     [styles.dark]: color && isDark(color),
+    [styles.sm]: size === "sm",
   });
 
   return (
