@@ -7,6 +7,7 @@ import { LineItem } from "@common/types/cart";
 import { ProductSwatch } from "@components/product";
 import useRemoveItem from "@framework/cart/use-remove-item";
 import useUpdateItem from "@framework/cart/use-update-item";
+import { ChangeEvent, useState } from "react";
 
 const CartItem = ({
   item,
@@ -18,8 +19,33 @@ const CartItem = ({
   const updateItem = useUpdateItem();
   const removeItem = useRemoveItem();
 
+  const [quantity, setQuantity] = useState(item.quantity);
   const price = item.variant.price! * item.quantity || 0;
   const { options } = item;
+
+  const handleQuantityChange = async (value: number) => {
+    if (Number.isInteger(value) && value >= 0) {
+      setQuantity(value);
+
+      const data = await updateItem({
+        id: item.id,
+        variantId: item.variantId,
+        quantity: value,
+      });
+    }
+  };
+
+  const handleQuantity = async (event: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(event.target.value);
+
+    handleQuantityChange(value);
+  };
+
+  const incrementQuantity = async (n = 1) => {
+    const value = Number(quantity) + n;
+
+    handleQuantityChange(value);
+  };
 
   return (
     <li
@@ -66,7 +92,7 @@ const CartItem = ({
         </div>
         <div className="flex items-center mt-3">
           <button type="button">
-            <Minus onClick={() => {}} />
+            <Minus onClick={() => incrementQuantity(-1)} />
           </button>
           <label>
             <input
@@ -74,11 +100,12 @@ const CartItem = ({
               max={99}
               min={0}
               className={styles.quantity}
-              value={""}
+              value={quantity}
+              onChange={handleQuantity}
             />
           </label>
           <button type="button">
-            <Plus onClick={() => {}} />
+            <Plus onClick={() => incrementQuantity(+1)} />
           </button>
         </div>
       </div>
