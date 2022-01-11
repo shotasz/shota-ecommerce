@@ -6,6 +6,7 @@ import { Trash, Plus, Minus } from "@components/icons";
 import { LineItem } from "@common/types/cart";
 import { ProductSwatch } from "@components/product";
 import useRemoveItem from "@framework/cart/use-remove-item";
+import useUpdateItem from "@framework/cart/use-update-item";
 
 const CartItem = ({
   item,
@@ -14,7 +15,9 @@ const CartItem = ({
   item: LineItem;
   currencyCode: string;
 }) => {
+  const updateItem = useUpdateItem();
   const removeItem = useRemoveItem();
+
   const price = item.variant.price! * item.quantity || 0;
   const { options } = item;
 
@@ -71,9 +74,7 @@ const CartItem = ({
               max={99}
               min={0}
               className={styles.quantity}
-              value={item.quantity}
-              onChange={() => {}}
-              onBlur={() => {}}
+              value={""}
             />
           </label>
           <button type="button">
