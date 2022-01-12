@@ -15,10 +15,10 @@ export default function Wishlist() {
                 <Heart className="absolute" />
               </span>
               <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
-                Your wishlist is empty
+                ほしい物リストは空です
               </h2>
               <p className="text-accents-6 px-10 text-center pt-2">
-                Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
+                お客様のほしい物リストには商品が登録されていません。
               </p>
             </div>
           ) : (

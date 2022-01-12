@@ -10,24 +10,24 @@ const Navbar: FC = () => {
       <div className={styles.root}>
         <div className="flex flex-1 items-center">
           <Link href="/">
-            <a className={styles.logo}>NEXT_STORE</a>
+            <a className={styles.logo}>Lite-EC</a>
           </Link>
 
           <nav className="ml-6 space-x-6">
             <Link href="/">
-              <a className={styles.link}>All</a>
+              <a className={styles.link}>すべてのアイテム</a>
             </Link>
 
             <Link href="/">
-              <a className={styles.link}>Clothes</a>
+              <a className={styles.link}>トップス</a>
             </Link>
 
             <Link href="/">
-              <a className={styles.link}>Accesories</a>
+              <a className={styles.link}>ボトムス</a>
             </Link>
 
             <Link href="/">
-              <a className={styles.link}>Shoes</a>
+              <a className={styles.link}>シューズ</a>
             </Link>
           </nav>
 
