@@ -49,6 +49,7 @@ export const handler: MutationHook<AddItemHook> = {
 
       return async (input) => {
         const response = await fetch(input);
+
         await updateCart(response, false);
 
         return response;

@@ -18,6 +18,7 @@ const ProductView: FC<Props> = ({ product }) => {
   const [choices, setChoices] = useState<Choices>({});
   const { openSidebar } = useUI();
   const addItem = useAddItem();
+  const [isLoading, setIsLoading] = useState(false);
 
   const variant = getVariant(product, choices);
 
@@ -25,15 +26,18 @@ const ProductView: FC<Props> = ({ product }) => {
     try {
       const item = {
         productId: String(product.id),
-        variantId: String(variant?.id),
-        variantOptions: variant?.options,
+        variantId: String(variant ? variant.id : product.variants[0].id),
         quantity: 1,
       };
 
-      const output = await addItem(item);
+      setIsLoading(true);
+      await addItem(item);
+      setIsLoading(false);
 
       openSidebar();
-    } catch {}
+    } catch {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -100,7 +104,11 @@ const ProductView: FC<Props> = ({ product }) => {
             </div>
           </section>
           <div>
-            <Button className={styles.button} onClick={addToCart}>
+            <Button
+              className={styles.button}
+              onClick={addToCart}
+              isLoading={isLoading}
+            >
               Add to Cart
             </Button>
           </div>
