@@ -69,8 +69,10 @@ const normalizeLineItem = ({
 
 const normalizeProductImage = ({ edges }: { edges: Array<ImageEdge> }) =>
   edges.map(({ node: { originalSrc: url, ...rest } }) => ({
-    url: `/images/${url}`,
-    ...rest,
+    url:
+      process.env.NEXT_PUBLIC_FRAMEWORK === "shopify_local"
+        ? `/images/${url}`
+        : url ?? "/product-image-placeholder.svg",
   }));
 
 const normalizeProductPrice = ({ currencyCode, amount }: MoneyV2) => ({
@@ -91,7 +93,7 @@ const normalizeProductOption = ({
         label: value,
       };
 
-      if (displayName.match(/colou?r/gi)) {
+      if (displayName.match(/色/gi)) {
         output = {
           ...output,
           hexColor: value,

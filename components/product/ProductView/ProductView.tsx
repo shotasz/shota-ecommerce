@@ -75,8 +75,7 @@ const ProductView: FC<Props> = ({ product }) => {
                 <h2 className="uppercase font-medium">{option.displayName}</h2>
                 <div className="flex flex-row py-4">
                   {option.values.map((value) => {
-                    const activeChoice =
-                      choices[option.displayName.toLowerCase()];
+                    const activeChoice = choices[option.displayName];
 
                     return (
                       <ProductSwatch
@@ -84,12 +83,11 @@ const ProductView: FC<Props> = ({ product }) => {
                         label={value.label}
                         color={value.hexColor}
                         variant={option.displayName}
-                        active={value.label.toLowerCase() === activeChoice}
+                        active={value.label === activeChoice}
                         onClick={() => {
                           setChoices({
                             ...choices,
-                            [option.displayName.toLowerCase()]:
-                              value.label.toLowerCase(),
+                            [option.displayName]: value.label,
                           });
                         }}
                       />
@@ -109,7 +107,7 @@ const ProductView: FC<Props> = ({ product }) => {
               onClick={addToCart}
               isLoading={isLoading}
             >
-              Add to Cart
+              カートに入れる
             </Button>
           </div>
         </div>

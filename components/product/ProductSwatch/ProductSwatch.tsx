@@ -26,7 +26,7 @@ const ProductSwatch: FC<Props> = ({
 
   const rootClassName = classNames(styles.root, {
     [styles.active]: active,
-    [styles.size]: variant === "size",
+    [styles.size]: variant === "サイズ",
     [styles.color]: color,
     [styles.dark]: color && isDark(color),
     [styles.sm]: size === "sm",
@@ -38,13 +38,13 @@ const ProductSwatch: FC<Props> = ({
       className={rootClassName}
       {...rest}
     >
-      {variant === "color" && active && (
+      {variant === "色" && active && (
         <span>
           <Check />
         </span>
       )}
 
-      {variant === "size" ? label : null}
+      {variant === "サイズ" ? label : null}
     </button>
   );
 };
