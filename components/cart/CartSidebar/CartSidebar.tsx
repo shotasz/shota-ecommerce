@@ -11,9 +11,6 @@ const CartSidebar: FC = () => {
   const { closeSidebar } = useUI();
   const { data, isEmpty } = useCart();
 
-  const tax = 0.1;
-  const includeTaxes = tax * data?.totalPrice!;
-
   const rootClass = classNames("h-full flex flex-col", {
     "bg-secondary text-secondary": isEmpty,
   });
@@ -67,13 +64,15 @@ const CartSidebar: FC = () => {
                 <li className="flex justify-between py-1">
                   <span>商品の小計</span>
                   <span>
-                    {data?.lineItemsSubTotalPrice} {data?.currency.code}
+                    {data?.lineItemsSubTotalPrice!} {data?.currency.code}
                   </span>
                 </li>
                 <li className="flex justify-between py-1">
-                  <span>税率（10%）</span>
+                  <span>内(税率10%）</span>
                   <span>
-                    {includeTaxes} {data?.currency.code}
+                    {Math.floor(data?.lineItemsSubTotalPrice! * 1.1) -
+                      data?.lineItemsSubTotalPrice!}
+                    {data?.currency.code}
                   </span>
                 </li>
                 <li className="flex justify-between py-1">
@@ -84,11 +83,11 @@ const CartSidebar: FC = () => {
               <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
                 <span>ご請求金額</span>
                 <span>
-                  {data?.totalPrice! + includeTaxes} {data?.currency.code}
+                  {data?.totalPrice!} {data?.currency.code}
                 </span>
               </div>
             </div>
-            <Button Component="a" href="/">
+            <Button Component="a" href="/api/checkout">
               レジに進む
             </Button>
           </div>
