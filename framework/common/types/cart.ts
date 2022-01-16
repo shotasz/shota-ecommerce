@@ -7,6 +7,7 @@ interface Discount {
 export interface Cart {
   id: string;
   createdAt: string;
+  completedAt: string;
   currency: {
     code: string;
   };

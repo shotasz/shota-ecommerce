@@ -16,6 +16,7 @@ export const normalizeCheckout = (checkout: Checkout): Cart => {
   return {
     id: checkout.id,
     createdAt: checkout.createdAt,
+    completedAt: checkout.completedAt,
     currency: {
       code: checkout.totalPriceV2.currencyCode,
     },
