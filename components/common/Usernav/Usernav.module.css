@@ -11,6 +11,12 @@
   } */
 }
 
+.item:last-child {
+  @media (max-width: 375px) {
+    margin-right: 0;
+  }
+}
+
 .item:hover {
   @apply text-accents-6 scale-110;
 }

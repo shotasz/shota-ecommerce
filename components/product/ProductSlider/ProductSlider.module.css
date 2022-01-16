@@ -23,6 +23,10 @@
   background-image: url("../../../public/cursor-left.png");
 
   @apply md:left-6;
+
+  @media (max-width: 375px) {
+    left: 1rem;
+  }
 }
 
 .rightControl {
@@ -30,6 +34,10 @@
   background-image: url("../../../public/cursor-right.png");
 
   @apply md:right-6;
+
+  @media (max-width: 375px) {
+    right: 1rem;
+  }
 }
 
 .control {

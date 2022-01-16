@@ -1,5 +1,5 @@
 .root {
-  @apply flex flex-row md:py-6;
+  @apply flex flex-row sm:py-6 mb:py-3;
 }
 
 .link {
@@ -8,6 +8,12 @@
   /* &:hover {
     @apply text-accents-9;
   } */
+}
+
+.link {
+  @media (max-width: 640px) {
+    display: none;
+  }
 }
 
 .link:hover {
